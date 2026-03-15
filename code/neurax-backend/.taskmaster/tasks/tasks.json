@@ -1,0 +1,141 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 21,
+        "title": "Environment Setup and Project Scaffolding",
+        "description": "Initialize the project environment, directory structure, and dependency management for the Neurax framework.",
+        "details": "Create the project root with subdirectories: /src (core logic), /data (data processing), /models (architecture definitions), and /tests. Setup a virtual environment and initialize a pyproject.toml or requirements.txt with essential libraries: torch, numpy, pandas, and pydantic for data validation.",
+        "testStrategy": "Verify environment activation and run a 'smoke test' script that imports all major dependencies without error.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 22,
+        "title": "Data Ingestion and Preprocessing Pipeline",
+        "description": "Implement a robust data loading system capable of handling various formats and performing initial transformations.",
+        "details": "Develop a DataManager class that wraps torch.utils.data.DataLoader. Implement specific parsers for CSV and JSON inputs. Include normalization and standardization functions using Scikit-Learn patterns within the preprocessing pipeline.",
+        "testStrategy": "Unit tests to ensure data shapes match expectations after preprocessing and that null values are handled correctly.",
+        "priority": "high",
+        "dependencies": [
+          21
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 23,
+        "title": "Core Neural Network Architecture Definition",
+        "description": "Design and implement the base neural network modules and layer abstractions.",
+        "details": "Create a base 'NeuraxModule' class inheriting from torch.nn.Module. Implement standard layers (Linear, Conv2d) and activation functions. Ensure weight initialization follows Xavier/Kaiming standards by default.",
+        "testStrategy": "Construct a simple MLP model and perform a forward pass with dummy data to verify tensor flow and output dimensions.",
+        "priority": "high",
+        "dependencies": [
+          21
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 24,
+        "title": "Loss Functions and Optimizer Integration",
+        "description": "Configure the training optimization suite including standard loss functions and optimizers.",
+        "details": "Expose common loss functions (CrossEntropy, MSE) and optimizers (Adam, SGD) via a configuration-driven factory pattern. Implement a 'TrainerConfig' pydantic model to manage hyperparameters.",
+        "testStrategy": "Validate that the optimizer correctly updates model weights during a single backpropagation step.",
+        "priority": "medium",
+        "dependencies": [
+          23
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 25,
+        "title": "Training Engine and Epoch Controller",
+        "description": "Develop the main training loop with support for epochs, batching, and early stopping.",
+        "details": "Implement a 'Trainer' class that iterates through the DataLoader, calculates loss, executes backprop, and tracks average loss per epoch. Include a simple early-stopping mechanism based on validation loss plateaus.",
+        "testStrategy": "Run a 5-epoch training session on a synthetic dataset (e.g., XOR problem) and confirm loss reduction over time.",
+        "priority": "high",
+        "dependencies": [
+          22,
+          24
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 26,
+        "title": "Model Serialization and Checkpointing",
+        "description": "Implement logic to save and load model states, including optimizer parameters and metadata.",
+        "details": "Create a CheckpointManager that uses torch.save to persist .pt or .pth files. Save the model's state_dict, optimizer state, and current epoch count to allow training resumption.",
+        "testStrategy": "Save a model, modify weights in memory, reload from disk, and assert that the reloaded weights match the original saved state.",
+        "priority": "medium",
+        "dependencies": [
+          25
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 27,
+        "title": "Inference Engine and Prediction API",
+        "description": "Build a high-level API for running predictions on trained models with optimized inference settings.",
+        "details": "Implement a 'Predictor' class that sets the model to eval() mode and wraps logic in torch.no_grad(). Add support for batch inference and basic output post-processing (e.g., softmax to class labels).",
+        "testStrategy": "Compare the output of the Predictor against a manual forward pass to ensure consistency.",
+        "priority": "medium",
+        "dependencies": [
+          26
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 28,
+        "title": "Evaluation Suite and Metric Reporting",
+        "description": "Implement standard evaluation metrics to assess model performance.",
+        "details": "Integrate metrics such as Accuracy, F1-Score, and Precision/Recall. Create an 'Evaluator' class that generates a performance summary report after validation runs.",
+        "testStrategy": "Use a known set of predictions and ground truths to verify that metric calculations match expected mathematical results.",
+        "priority": "medium",
+        "dependencies": [
+          25
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 29,
+        "title": "Logging and Visualization Integration",
+        "description": "Add support for real-time training telemetry and logging.",
+        "details": "Integrate a logging provider (e.g., TensorBoard or Weights & Biases) to track loss curves and gradient distributions. Use a standard Python logging module for console output.",
+        "testStrategy": "Verify that log files are generated in the specified directory and contain the expected scalar values.",
+        "priority": "low",
+        "dependencies": [
+          25
+        ],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 30,
+        "title": "Deployment Wrapper and Documentation",
+        "description": "Finalize the package for use and document the API for developers.",
+        "details": "Create a basic FastAPI or Flask wrapper to expose the Inference Engine as a REST endpoint. Complete the README.md with usage examples for training and inference.",
+        "testStrategy": "Perform an end-to-end test starting from data loading to a successful REST API prediction response.",
+        "priority": "low",
+        "dependencies": [
+          27,
+          28
+        ],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2026-03-14T11:05:52.560Z",
+      "updated": "2026-03-14T11:48:31.505Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

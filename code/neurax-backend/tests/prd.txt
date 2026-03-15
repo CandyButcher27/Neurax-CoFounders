@@ -1,0 +1,22 @@
+# Project: Minimalist Habit Tracker (Mobile Web)
+
+## Overview
+A lightweight web application that allows users to track daily habits with a simple "yes/no" check-in. The goal is to build a fast, mobile-first MVP.
+
+## Core Features
+- **Habit Creation**: Users can add a habit by giving it a name (e.g., "Drink Water") and a daily goal.
+- **Daily Dashboard**: A list of active habits for today with a toggle button to mark them as "Completed."
+- **Progress History**: A simple 7-day calendar view showing which days the habit was completed.
+- **Data Persistence**: Use local browser storage to save habits so they persist between sessions.
+
+## Technical Requirements
+- **Tech Stack**: React.js with Tailwind CSS for styling.
+- **State Management**: Use React Context API or standard hooks.
+- **Storage**: Browser localStorage for the MVP phase.
+- **Responsive Design**: Must be optimized for mobile screens first.
+
+## Acceptance Criteria
+- User can add at least 5 habits.
+- Completing a habit updates the progress view immediately.
+- Refreshing the page does not lose the data.
+- The UI must be clean and free of unnecessary clutter.

@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cofounders.ai — AI-Powered Task Assignment</title>
+  <meta name="description"
+    content="Drop your PRD. Upload your team. Watch AI assign the right tasks to the right people." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+  <!-- ── NAV ─────────────────────────────────────────────────────────── -->
+  <nav class="nav" id="nav">
+    <a href="/" class="nav-logo">
+      <span class="logo-dot"></span>
+      cofounders<span class="logo-accent">.ai</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+    </ul>
+    <a href="app.html" class="nav-cta">Launch App →</a>
+  </nav>
+
+  <!-- ══════════════════════════════════════════════════════════════════
+     SCROLL JOURNEY  ·  500vh
+     #three-canvas is position:sticky inside so the 3D scene stays
+     full-screen while the chapter divs (absolute) scroll over it.
+  ══════════════════════════════════════════════════════════════════ -->
+  <div id="journey">
+
+    <canvas id="three-canvas"></canvas>
+    <div id="journey-glow"></div>
+
+    <!-- Chapter progress dots -->
+    <div id="ch-dots">
+      <div class="ch-dot active" data-ch="0"></div>
+      <div class="ch-dot" data-ch="1"></div>
+      <div class="ch-dot" data-ch="2"></div>
+      <div class="ch-dot" data-ch="3"></div>
+    </div>
+
+    <!-- ── CHAPTER 0  ·  HERO ─────────────────────────────────────── -->
+    <div class="chapter" id="ch-0">
+      <div class="ch-inner ch-center">
+        <div class="ch-badge">✦ AI-Powered Task Assignment</div>
+        <h1 class="hero-title">
+          <span class="ht-line">Your AI</span>
+          <span class="ht-line ht-accent">Cofounder</span>
+          <span class="ht-line">for Execution</span>
+        </h1>
+        <p class="hero-sub">
+          Drop your PRD. Upload your team's resumes.<br />
+          Watch AI wire every task to the right person — instantly.
+        </p>
+        <div class="hero-actions">
+          <a href="app.html" class="btn-primary">Start Assigning <span class="ba">→</span></a>
+          <span class="scroll-hint">↓ scroll to see how it works</span>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><span class="sn">10x</span><span class="sl">Faster Planning</span></div>
+          <div class="sdiv"></div>
+          <div class="stat"><span class="sn">100%</span><span class="sl">Skill-Matched</span></div>
+          <div class="sdiv"></div>
+          <div class="stat"><span class="sn">0</span><span class="sl">Manual Work</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHAPTER 1  ·  PRD → TASKS ─────────────────────────────── -->
+    <div class="chapter" id="ch-1">
+      <div class="ch-split">
+        <div class="ch-copy">
+          <div class="ch-num">01</div>
+          <div class="ch-tag">Drop your PRD</div>
+          <h2 class="ch-h2">From requirements<br /><em>to tasks</em></h2>
+          <p class="ch-p">Paste your product requirements document or upload a PDF. AI breaks it into granular,
+            dependency-ordered tasks with priorities and test strategies.</p>
+          <ul class="ch-list">
+            <li><span class="ck">✓</span>Automatic task extraction</li>
+            <li><span class="ck">✓</span>Priority classification</li>
+            <li><span class="ck">✓</span>Dependency mapping</li>
+            <li><span class="ck">✓</span>Test strategy generation</li>
+          </ul>
+        </div>
+        <div class="ch-visual">
+          <div class="task-cards">
+            <div class="tc tc-1"><span class="tc-dot orange"></span><span class="tc-title">Environment Setup</span><span
+                class="tc-pri high">HIGH</span></div>
+            <div class="tc tc-2"><span class="tc-dot cyan"></span><span class="tc-title">Data Pipeline</span><span
+                class="tc-pri med">MED</span></div>
+            <div class="tc tc-3"><span class="tc-dot orange"></span><span class="tc-title">Core Architecture</span><span
+                class="tc-pri high">HIGH</span></div>
+            <div class="tc tc-4"><span class="tc-dot cyan"></span><span class="tc-title">Training Engine</span><span
+                class="tc-pri high">HIGH</span></div>
+            <div class="tc tc-5"><span class="tc-dot muted"></span><span class="tc-title">Deployment API</span><span
+                class="tc-pri low">LOW</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHAPTER 2  ·  ASSIGNMENT ──────────────────────────────── -->
+    <div class="chapter" id="ch-2">
+      <div class="ch-split ch-split-rev">
+        <div class="ch-visual">
+          <div class="assign-demo">
+            <div class="ad-row">
+              <div class="ad-person">
+                <div class="ad-av" style="background:linear-gradient(135deg,#FF5500,#7B2FFF)">EP 1</div><span>Employee 1</span>
+              </div>
+              <div class="ad-line">
+                <div class="ad-pulse"></div>
+              </div>
+              <div class="ad-task">Core API Framework</div>
+            </div>
+            <div class="ad-row">
+              <div class="ad-person">
+                <div class="ad-av" style="background:linear-gradient(135deg,#00DFFF,#7B2FFF)">EP 2</div><span>Employee 2</span>
+              </div>
+              <div class="ad-line">
+                <div class="ad-pulse"></div>
+              </div>
+              <div class="ad-task">Database Schema</div>
+            </div>
+            <div class="ad-row">
+              <div class="ad-person">
+                <div class="ad-av" style="background:linear-gradient(135deg,#FF5500,#00DFFF)">EP 3</div><span>Employee 3</span>
+              </div>
+              <div class="ad-line">
+                <div class="ad-pulse"></div>
+              </div>
+              <div class="ad-task">Auth Layer</div>
+            </div>
+          </div>
+        </div>
+        <div class="ch-copy">
+          <div class="ch-num">02</div>
+          <div class="ch-tag">Skill-matched instantly</div>
+          <h2 class="ch-h2">AI reads every<br /><em>resume in seconds</em></h2>
+          <p class="ch-p">Upload your team's PDF resumes. We extract skills, experience, and domains — then every task
+            is wired to the person who can actually build it.</p>
+          <ul class="ch-list">
+            <li><span class="ck">✓</span>Deep PDF parsing</li>
+            <li><span class="ck">✓</span>Skill-to-task matching</li>
+            <li><span class="ck">✓</span>Experience-aware assignment</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── CHAPTER 3  ·  EXECUTE ──────────────────────────────────── -->
+    <div class="chapter" id="ch-3">
+      <div class="ch-inner ch-center">
+        <div class="ch-num ch-num-center">03</div>
+        <div class="ch-tag ch-tag-center">Ready to run</div>
+        <h2 class="ch-h2 ch-h2-big"><em class="gradient-text">Your execution<br />engine is ready</em></h2>
+        <p class="ch-p ch-p-center">Download a complete CrewAI config — agents, tasks, crew — and drop it straight into
+          your project.</p>
+        <div class="file-chips">
+          <span class="chip">agents.yaml</span>
+          <span class="chip">tasks.yaml</span>
+          <span class="chip">crew.py</span>
+          <span class="chip">main.py</span>
+        </div>
+        <a href="app.html" class="btn-primary btn-large">Launch the App <span class="ba">→</span></a>
+      </div>
+    </div>
+
+    <!-- Scroll nudge -->
+    <div id="scroll-nudge">
+      <span>scroll</span>
+      <div class="snt">
+        <div class="snth"></div>
+      </div>
+    </div>
+
+  </div><!-- /#journey -->
+
+  <!-- ══════════════════════════════════════════════════════════════════
+     FEATURES SECTION  (below the scroll journey)
+  ══════════════════════════════════════════════════════════════════ -->
+  <section id="features">
+    <div class="container">
+      <div class="section-tag">CAPABILITIES</div>
+      <h2 class="section-title">Built for teams that <span class="gradient-text">move fast</span></h2>
+      <div class="feat-grid">
+        <div class="feat-card" data-reveal><span class="feat-num">01</span>
+          <div class="feat-icon">🧠</div>
+          <h3>Skill-Aware Matching</h3>
+          <p>Tasks go to the people who can actually build them, matched by real skills from real resumes.</p>
+        </div>
+        <div class="feat-card" data-reveal><span class="feat-num">02</span>
+          <div class="feat-icon">🔗</div>
+          <h3>Dependency-Ordered</h3>
+          <p>Tasks are chained intelligently. No one starts Step 3 before Step 1 is shipped.</p>
+        </div>
+        <div class="feat-card" data-reveal><span class="feat-num">03</span>
+          <div class="feat-icon">📦</div>
+          <h3>CrewAI Ready</h3>
+          <p>Export <code>agents.yaml</code>, <code>tasks.yaml</code>, <code>crew.py</code>. Plug in and go.</p>
+        </div>
+        <div class="feat-card" data-reveal><span class="feat-num">04</span>
+          <div class="feat-icon">⚡</div>
+          <h3>Under 30 Seconds</h3>
+          <p>From raw PDF to full task assignments faster than your next standup.</p>
+        </div>
+        <div class="feat-card" data-reveal><span class="feat-num">05</span>
+          <div class="feat-icon">🔍</div>
+          <h3>Full Transparency</h3>
+          <p>See exactly why each task was matched to each person. No black box decisions.</p>
+        </div>
+        <div class="feat-card" data-reveal><span class="feat-num">06</span>
+          <div class="feat-icon">👥</div>
+          <h3>Small Team Focus</h3>
+          <p>Built for startups and squads up to 20. Every person counts, every task matters.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ──────────────────────────────────────────────────────── -->
+  <section id="cta-section">
+    <div class="cta-orb-1"></div>
+    <div class="cta-orb-2"></div>
+    <div class="container">
+      <h2 class="cta-title" data-reveal>Ready to build smarter<br /><span class="gradient-text">teams?</span></h2>
+      <p class="cta-sub" data-reveal>Join teams using cofounders.ai to go from requirements to execution in minutes.</p>
+      <a href="app.html" class="btn-primary btn-large" data-reveal>Get Started — It's Free <span class="ba">→</span></a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ────────────────────────────────────────────────────── -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-logo"><span class="logo-dot"></span>cofounders<span class="logo-accent">.ai</span></div>
+      <p class="footer-copy">© 2026 cofounders.ai — Built for builders.</p>
+    </div>
+  </footer>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+  <script src="landing.js"></script>
+</body>
+
+</html>

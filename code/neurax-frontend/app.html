@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>cofounders.ai — App</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="app.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
+</head>
+<body class="app-body">
+
+  <!-- ── NAVBAR ─────────────────────────────────────────────────────── -->
+  <nav class="app-nav">
+    <a href="index.html" class="nav-logo">
+      <span class="logo-dot"></span>
+      cofounders<span class="logo-accent">.ai</span>
+    </a>
+    <div class="app-nav-right">
+      <span class="app-nav-badge" id="status-badge">● Ready</span>
+    </div>
+  </nav>
+
+  <!-- ── MAIN LAYOUT ────────────────────────────────────────────────── -->
+  <div class="app-layout">
+
+    <!-- Sidebar -->
+    <aside class="app-sidebar">
+      <div class="sidebar-steps">
+        <button class="step-btn active" data-step="1" onclick="goToStep(1)">
+          <span class="step-num">01</span>
+          <div class="step-info">
+            <span class="step-label">PRD</span>
+            <span class="step-sub">Parse requirements</span>
+          </div>
+          <span class="step-check" id="check-1"></span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-btn" data-step="2" onclick="goToStep(2)">
+          <span class="step-num">02</span>
+          <div class="step-info">
+            <span class="step-label">Resumes</span>
+            <span class="step-sub">Upload team</span>
+          </div>
+          <span class="step-check" id="check-2"></span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-btn" data-step="3" onclick="goToStep(3)">
+          <span class="step-num">03</span>
+          <div class="step-info">
+            <span class="step-label">Generate</span>
+            <span class="step-sub">Build crew config</span>
+          </div>
+          <span class="step-check" id="check-3"></span>
+        </button>
+        <div class="step-connector"></div>
+        <button class="step-btn" data-step="4" onclick="goToStep(4)">
+          <span class="step-num">04</span>
+          <div class="step-info">
+            <span class="step-label">Execute</span>
+            <span class="step-sub">Run & download</span>
+          </div>
+          <span class="step-check" id="check-4"></span>
+        </button>
+      </div>
+
+      <div class="sidebar-summary">
+        <div class="summary-item" id="summary-tasks">
+          <span class="si-label">Tasks parsed</span>
+          <span class="si-val" id="val-tasks">—</span>
+        </div>
+        <div class="summary-item" id="summary-resumes">
+          <span class="si-label">Resumes loaded</span>
+          <span class="si-val" id="val-resumes">0</span>
+        </div>
+        <div class="summary-item" id="summary-agents">
+          <span class="si-label">Agents created</span>
+          <span class="si-val" id="val-agents">—</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main content -->
+    <main class="app-main">
+
+      <!-- ── STEP 1: Parse PRD ───────────────────────────────────────── -->
+      <section class="step-section active" id="step-1">
+        <div class="step-header">
+          <div class="step-tag">Step 01</div>
+          <h1 class="step-title">Parse your <em>PRD</em></h1>
+          <p class="step-desc">Paste your product requirements document or upload a file. We'll break it into granular, dependency-ordered tasks.</p>
+        </div>
+
+        <div class="input-tabs">
+          <button class="tab-btn active" onclick="switchTab('text')">Paste Text</button>
+          <button class="tab-btn" onclick="switchTab('file')">Upload File</button>
+        </div>
+
+        <div class="tab-pane active" id="tab-text">
+          <textarea class="prd-textarea" id="prd-text" placeholder="Paste your PRD here…
+
+Example:
+Build a machine learning pipeline that ingests data from S3, trains a classification model, and exposes a REST API for predictions. The system should handle 10k requests per day and include monitoring dashboards."></textarea>
+        </div>
+
+        <div class="tab-pane" id="tab-file">
+          <div class="drop-zone" id="prd-dropzone" onclick="document.getElementById('prd-file').click()">
+            <div class="dz-icon">📄</div>
+            <div class="dz-text">Drop your PRD here or <span class="dz-link">browse</span></div>
+            <div class="dz-sub">Supports .txt and .pdf files</div>
+            <input type="file" id="prd-file" accept=".txt,.pdf" style="display:none" onchange="onPRDFileSelect(this)" />
+          </div>
+          <div class="selected-file" id="prd-selected" style="display:none">
+            <span class="sf-icon">📎</span>
+            <span class="sf-name" id="prd-filename"></span>
+            <button class="sf-remove" onclick="clearPRDFile()">✕</button>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-action" id="parse-prd-btn" onclick="parsePRD()">
+            <span class="btn-icon">⚡</span> Parse PRD
+          </button>
+        </div>
+
+        <!-- Results -->
+        <div class="results-panel" id="prd-results" style="display:none">
+          <div class="rp-header">
+            <span class="rp-title">Extracted Tasks</span>
+            <span class="rp-badge" id="task-count-badge">0 tasks</span>
+          </div>
+          <div class="task-list" id="task-list"></div>
+          <div class="rp-footer">
+            <button class="btn-action btn-next" onclick="goToStep(2)">
+              Next: Upload Resumes <span class="ba">→</span>
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── STEP 2: Resumes ─────────────────────────────────────────── -->
+      <section class="step-section" id="step-2">
+        <div class="step-header">
+          <div class="step-tag">Step 02</div>
+          <h1 class="step-title">Upload your <em>team</em></h1>
+          <p class="step-desc">Upload PDF resumes for each team member. We'll extract their skills and experience for intelligent task matching.</p>
+        </div>
+
+        <div class="drop-zone" id="resume-dropzone" onclick="document.getElementById('resume-file').click()">
+          <div class="dz-icon">👤</div>
+          <div class="dz-text">Drop a resume here or <span class="dz-link">browse</span></div>
+          <div class="dz-sub">PDF only · Upload one at a time</div>
+          <input type="file" id="resume-file" accept=".pdf" style="display:none" onchange="uploadResume(this)" />
+        </div>
+
+        <div class="resume-list" id="resume-list"></div>
+
+        <div class="action-row" id="resume-action-row" style="display:none">
+          <button class="btn-action btn-next" onclick="goToStep(3)">
+            Next: Generate Crew <span class="ba">→</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- ── STEP 3: Generate ────────────────────────────────────────── -->
+      <section class="step-section" id="step-3">
+        <div class="step-header">
+          <div class="step-tag">Step 03</div>
+          <h1 class="step-title">Generate your <em>crew</em></h1>
+          <p class="step-desc">AI will match tasks to team members and produce a complete CrewAI configuration.</p>
+        </div>
+
+        <div class="prereq-panel" id="prereq-panel">
+          <div class="prereq-item" id="prereq-prd">
+            <span class="prereq-icon">○</span>
+            <span>PRD parsed</span>
+          </div>
+          <div class="prereq-item" id="prereq-resumes">
+            <span class="prereq-icon">○</span>
+            <span>Resumes uploaded</span>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-action" id="generate-btn" onclick="generateCrew()" disabled>
+            <span class="btn-icon">🤖</span> Generate Crew Config
+          </button>
+        </div>
+
+        <!-- Generated files preview -->
+        <div class="results-panel" id="crew-results" style="display:none">
+          <div class="rp-header">
+            <span class="rp-title">Generated Files</span>
+            <span class="rp-badge" id="generated-at-badge"></span>
+          </div>
+          <div class="file-tabs" id="file-tabs"></div>
+          <pre class="code-preview" id="code-preview"></pre>
+          <div class="new-agents-panel" id="new-agents-panel" style="display:none">
+            <span class="na-label">New agents created by AI:</span>
+            <div class="na-chips" id="na-chips"></div>
+          </div>
+          <div class="rp-footer">
+            <button class="btn-action btn-next" onclick="goToStep(4)">
+              Next: Run Crew <span class="ba">→</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Assignment board -->
+        <div class="assignment-board" id="assignment-board" style="display:none">
+          <div class="ab-header">
+            <div class="ab-header-left">
+              <span class="ab-title">Assignment Board</span>
+              <span class="rp-badge" id="ab-badge"></span>
+            </div>
+            <div class="ab-view-toggle">
+              <button class="avt-btn active" id="avt-board" onclick="setAbView('board')">Board</button>
+              <button class="avt-btn" id="avt-list" onclick="setAbView('list')">List</button>
+            </div>
+          </div>
+          <div class="ab-columns" id="ab-columns"></div>
+          <div class="ab-list" id="ab-list" style="display:none"></div>
+        </div>
+      </section>
+
+      <!-- ── STEP 4: Execute ─────────────────────────────────────────── -->
+      <section class="step-section" id="step-4">
+        <div class="step-header">
+          <div class="step-tag">Step 04</div>
+          <h1 class="step-title">Execute your <em>crew</em></h1>
+          <p class="step-desc">Run the generated CrewAI project inside Docker and download the results.</p>
+        </div>
+
+        <div class="run-info">
+          <div class="info-card">
+            <span class="ic-icon">🐳</span>
+            <div>
+              <div class="ic-title">Docker Required</div>
+              <div class="ic-sub">The crew runs inside a Docker container. Make sure Docker is running.</div>
+            </div>
+          </div>
+          <div class="info-card">
+            <span class="ic-icon">⏱</span>
+            <div>
+              <div class="ic-title">Up to 10 minutes</div>
+              <div class="ic-sub">Complex crews with many tasks may take a while to complete.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="action-row">
+          <button class="btn-action" id="run-btn" onclick="runCrew()">
+            <span class="btn-icon">▶</span> Run Crew
+          </button>
+          <a class="btn-action btn-download" id="download-btn" href="http://localhost:8000/crew-download" style="display:none">
+            <span class="btn-icon">⬇</span> Download Output
+          </a>
+        </div>
+
+        <!-- Output log -->
+        <div class="log-panel" id="log-panel" style="display:none">
+          <div class="log-header">
+            <span class="log-title">Execution Log</span>
+            <span class="log-status" id="log-status"></span>
+          </div>
+          <pre class="log-output" id="log-output"></pre>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ── TOAST ──────────────────────────────────────────────────────── -->
+  <div id="toast-container"></div>
+
+  <!-- ── LOADING OVERLAY ────────────────────────────────────────────── -->
+  <div class="loading-overlay" id="loading-overlay" style="display:none">
+    <div class="loading-box">
+      <div class="loading-spinner"></div>
+      <div class="loading-msg" id="loading-msg">Processing…</div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
